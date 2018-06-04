@@ -34,3 +34,18 @@
     }
   }
 }
+
+.posts.edit {
+  .list-group-item {
+    padding: 8px;
+    input[type='text'], textarea {
+      background-color: $light-grey;
+    }
+    textarea {
+      height: 120px;
+    }
+    &:last-child {
+      background-color: $light-grey;
+    }
+  }
+}

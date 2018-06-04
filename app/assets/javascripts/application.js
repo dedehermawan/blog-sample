@@ -15,3 +15,13 @@
 //= require_tree .
 //= require jquery
 //= require bootstrap-sprockets
+
+document.addEventListener("turbolinks:load", function(){
+  tinymce.remove();
+  tinymce.init({ 
+    height: '400',
+    selector:'textarea#post_body', //post_body -> id yang di generate oleh rails
+    plugins: "codesample image media link code",
+    toolbar: "undo redo | styleselect | bold italic link | codesample image media | code"
+  }); 
+})

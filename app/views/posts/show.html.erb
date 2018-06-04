@@ -1,9 +1,13 @@
 <% provide(:title, @post.title) %>
 
 <div class="row">
+  <% if user_signed_in? %>
+    <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-warning' %>
+    <%= link_to 'Delete', @post,  method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+  <% end %>
   <div class="text-center">
     <h1><%= @post.title %></h1>
     <p><%= @post.display_day_published %></p>
-    <%= @post.body %>
+    <%= @post.body.html_safe %>
   </div>
 </div>

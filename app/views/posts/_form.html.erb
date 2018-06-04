@@ -4,29 +4,54 @@
       <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
 
       <ul>
-      <% post.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
 
-   <div class="field">
-    <%= form.label :banner_image_url %>
-    <%= form.text_field :banner_image_url, id: :post_banner_image_url %>
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <% if @post.new_record? %>
+        <h3 class="panel-title">New Post </h3>
+      <% else %>
+        <h3 class="panel-title">
+          <b>Edit</b>
+          <span class="thin-text"><%= @post.title %></span>
+        </h3>
+      <% end %>
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <div class="field">
+            <%= form.label :title %>
+            <%= form.text_field :title, id: :post_title, class: 'form-control' %>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="field">
+            <%= form.label :banner_image_url %>
+            <%= form.text_field :banner_image_url, id: :post_banner_image_url, class: 'form-control' %>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="actions">
+            <%= form.submit 'Save Blog Post', class: 'btn btn-success btn-block' %>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <% if @post.persisted? %>
+      <%= link_to 'Show', @post %> |
+    <% end %>
+    <%= link_to 'Back', posts_path %>
   </div>
 
- <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title, id: :post_title %>
-  </div>
-
-  <div class="field">
-    <%= form.label :body %>
-    <%= form.text_area :body, id: :post_body %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <div class="col-md-8">
+    <div class="field">
+      <%= form.text_area :body, id: :post_body, class: 'form-control' %>
+    </div>
   </div>
 <% end %>
