@@ -8,7 +8,7 @@ class PostsController < ApplicationController
     if user_signed_in?
     @posts = Post.most_recent
     else
-    @posts = Post.published.most_recent
+      @posts = Post.published.most_recent.paginate(:page => params[:page], per_page: 3)
     end
   end
 
@@ -27,12 +27,12 @@ class PostsController < ApplicationController
   end
 
   def publish
-    @post.update(published: true, published_at: Time.now)
+    @post.publish
     redirect_to posts_url
   end
 
   def unpublish
-    @post.update(published: false, published_at: nil)
+    @post.unpublish
     redirect_to posts_url
   end
 

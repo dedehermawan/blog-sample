@@ -4,6 +4,7 @@
   <div class="row">
     <%= render @posts %>
   </div>
+    <%= will_paginate @posts, class: 'apple_pagination' %>
 <% else %>
   <div class="row">
     <div>
