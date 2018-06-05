@@ -1,11 +1,15 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :publish, :unpublish]
 
   # GET /posts
   # GET /posts.json
   def index
+    if user_signed_in?
     @posts = Post.most_recent
+    else
+    @posts = Post.published.most_recent
+    end
   end
 
   # GET /posts/1
@@ -20,6 +24,16 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
+  end
+
+  def publish
+    @post.update(published: true, published_at: Time.now)
+    redirect_to posts_url
+  end
+
+  def unpublish
+    @post.update(published: false, published_at: nil)
+    redirect_to posts_url
   end
 
   # POST /posts

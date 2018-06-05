@@ -13,14 +13,21 @@
     <table class="table table-striped">
       <th>No</th>
       <th>Title</th>
+      <th>Published</th>
       <th>Action</th>
       <% i = 0 %>
       <% @posts.each do |post| %>
         <tr>
           <td><%= i+=1 %></td>
-          <td><%= post.title %></td>
+          <td><%= link_to post.title, post_path(post) %></td>
           <td>
-            <%= link_to 'Show', post_path(post) %>
+            <% if post.published %>
+              <%= link_to 'Unpublish', unpublish_post_path(post), method: :put, class: 'btn btn-danger' %>
+            <% else %>
+              <%= link_to 'Publish', publish_post_path(post), method: :put, class: 'btn btn-success' %>
+            <% end %>
+          </td>
+          <td>
             <%= link_to 'Edit', edit_post_path(post) %>
             <%= link_to 'Destroy',  post,  method: :delete, data: { confirm: 'Are you sure?' } %>
           </td>
